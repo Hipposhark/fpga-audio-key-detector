@@ -1,0 +1,24 @@
+# Vivado generated files
+build/
+.Xil/
+*.jou
+*.log
+*.str
+*.wdb
+*.wcfg
+
+# Vivado project artifacts
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.runs/
+*.gen/
+*.xpr
+
+# OS/editor noise
+.DS_Store
+.vscode/
+
+# User config
+config/local.mk
