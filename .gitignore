@@ -1,4 +1,4 @@
-# Vivado generated files
+# Vivado generated files (for server-side only)
 build/
 .Xil/
 *.jou
@@ -7,7 +7,7 @@ build/
 *.wdb
 *.wcfg
 
-# Vivado project artifacts
+# Vivado project artifacts (for server-side only)
 *.cache/
 *.hw/
 *.ip_user_files/
