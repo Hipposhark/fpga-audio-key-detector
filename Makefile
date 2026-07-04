@@ -15,8 +15,9 @@ BOARD ?= nexys_a7_100
 
 -include config/local.mk
 
-REMOTE     ?= your_username@your_linux_or_windows_server_with_vivado.edu
-REMOTE_DIR ?= ~/directory/to/test/project
+REMOTE        ?= your_username@your_linux_or_windows_server_with_vivado.edu
+REMOTE_DIR    ?= ~/directory/to/test/project
+BITSTREAM_DIR ?= build/top.bit # default is build/top.bit from the batch script
 
 .PHONY: build fetch-bit program flash sync clean
 
@@ -24,26 +25,25 @@ REMOTE_DIR ?= ~/directory/to/test/project
 build:
 	vivado -mode batch -source scripts/build.tcl -tclargs $(PART)
 
-# local command to pull the bitstream from the server
+# local command to pull the remote bitstream
 fetch-bit:
 	mkdir -p build
-	scp $(REMOTE):$(REMOTE_DIR)/build/top.bit build/top.bit
+	scp $(REMOTE):$(REMOTE_DIR)/$(BITSTREAM_DIR) build/top.bit
 
-
-BITSTREAM ?= top.bit # default is top.bit since that is what Vivado produces
-
-# loads bitstream into the FPGA's SRAM (for testing)
+# local command to load available bitstream into the FPGA's SRAM (for testing)
 program:
-	bash ./scripts/program_nexysa7.sh nexys_a7_100 build/$(BITSTREAM)
+	bash ./scripts/program_nexysa7.sh nexys_a7_100 $(BITSTREAM_DIR)
 
-# loads bitstream into the FPGA's nonvolatile flash memory (for production)
+# local command to load available bitstream into the FPGA's 
+# nonvolatile flash memory (for production)
 flash:
-	openFPGALoader -b $(BOARD) -f build/$(BITSTREAM)
+	openFPGALoader -b $(BOARD) -f $(BITSTREAM_DIR)
 
 # copies local files to the remote server
 sync:
 	ssh $(REMOTE) 'mkdir -p $(REMOTE_DIR)'
-	rsync -av --delete --exclude '.git' --exclude 'build' ./ $(REMOTE):$(REMOTE_DIR)/
+	rsync -av --delete --exclude '.git' --exclude 'build' \
+		./ $(REMOTE):$(REMOTE_DIR)/
 
 # deletes the existing build files to start from a fresh build
 clean:
