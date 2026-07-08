@@ -22,8 +22,10 @@ BITSTREAM_DIR ?= build/top.bit # default is build/top.bit from the batch script
 .PHONY: build fetch-bit program flash sync clean
 
 # server command to execute vivado script and build the bitstream remotely
+NUM_JOBS ?= 4
 build:
-	vivado -mode batch -source scripts/build.tcl -tclargs $(PART)
+	VIVADO_JOBS=$(NUM_JOBS) \
+		vivado -mode batch -source scripts/build.tcl -tclargs $(PART)
 
 # local command to pull the remote bitstream
 fetch-bit:
