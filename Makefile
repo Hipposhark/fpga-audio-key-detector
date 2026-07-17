@@ -28,6 +28,7 @@ build:
 		vivado -mode batch -source scripts/build.tcl -tclargs $(PART)
 
 # local command to pull the remote bitstream
+# make fetch-bit BITSTREAM_DIR=build/vivado/fpga_audio_key_detector/fpga_audio_key_detector.runs/impl_1/top.bit
 fetch-bit:
 	mkdir -p build
 	scp $(REMOTE):$(REMOTE_DIR)/$(BITSTREAM_DIR) build/top.bit

@@ -95,8 +95,8 @@ module EightSevenSegmentDisplays
         dp_ctrl_enL  = 1'b1;        // dp off
 
         if (active_en) begin
-            an_ctrl_enL[active_digit] = 1'b0; // enable one digit
-            seg_ctrl_enL = ~seg_pattern;      // invert to active-low
+            an_ctrl_enL[active_digit] = 1'b0;  // enable one digit
+            seg_ctrl_enL = ~seg_pattern;       // invert to active-low
             if (active_dp) dp_ctrl_enL = 1'b0;
         end
     end

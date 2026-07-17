@@ -22,4 +22,4 @@ module test_pattern_generator
                    (btw_100_199 | btw_300_399 | btw_500_599 | btw_700_799) ? 
                     8'hff : 8'h00;
 
-endmodule: test_pattern_generator;
+endmodule: test_pattern_generator

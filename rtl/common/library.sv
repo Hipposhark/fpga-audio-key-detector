@@ -1,3 +1,7 @@
+/**
+ * @brief A library containing simple RTL components
+ */
+
 // `default_nettype none
 
 module Comparator
@@ -245,5 +249,3 @@ module OffsetCheck
     rangeCheckVal(.low, .val, .high(lowDeltaSum), .is_between);
 
 endmodule: OffsetCheck
-
-`default_nettype wire
